@@ -1,0 +1,25 @@
+{% extends "basis.html" %}
+
+{% block title %}Home - The Coding Dojo{% endblock %}
+
+{% block content %}
+
+<section class="intro">
+    <h2>Your Journey to Becoming a Developer Starts Here</h2>
+    <p>At The Coding Dojo, we offer immersive coding bootcamps designed to transform beginners into professional developers. Join us and take the first step towards your new career!</p>
+    <a href="{{ url_for('courses') }}" class="btn">Explore Our Courses</a>
+</section>
+
+<section class="features">
+    <div class="feature">
+        <h3>Comprehensive Curriculum</h3>
+        <p>Learn the latest technologies and frameworks with our up-to-date curriculum.</p>
+    </div>
+    <div class="feature">
+        <h3>Experienced Instructors</h3>
+        <p>Get guidance from industry professionals who are passionate about teaching.</p>
+    </div>
+</section>
+
+{% endblock %}
+

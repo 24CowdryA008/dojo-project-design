@@ -6,9 +6,16 @@
     --gray: #F4F4F4;
 }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
+/* Make body a flex container for sticky footer */
+html, body {
+    height: 100%;
     margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', sans-serif;
     background-color: var(--gray);
     color: var(--black);
 }
@@ -47,6 +54,7 @@ nav a:hover {
 }
 
 main {
+    flex: 1; /* This ensures the main content fills the available space */
     padding: 2rem;
 }
 
@@ -101,7 +109,7 @@ footer {
     color: var(--white);
     text-align: center;
     padding: 1rem 0;
-    margin-top: 3rem;
+    width: 100%;
 }
 
 footer a {

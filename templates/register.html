@@ -1,0 +1,250 @@
+{% extends 'basis.html' %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+        margin: 0;
+        padding: 0;
+        background-image: url('static/CrimsonWPNew2022.gif');
+        background-color: black; /* Fallback color */
+        background-size: cover;
+        background-attachment: fixed; /* Ensures the background stays in place */
+        background-position: center;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+
+    .paragraph {
+            padding: 20px;
+        }
+
+    p {
+        max-width: 800px;
+        margin: 20px auto;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text readability */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+  /* Sidebar styles */
+  .sidebar {
+        height: 100vh; /* Full viewport height */
+        width: 250px; /* Sidebar width */
+        position: fixed; /* Stay in place */
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sidebar-image {
+        width: 100%; /* Adjust to fit the sidebar width */
+        height: auto; /* Maintain aspect ratio */
+        margin-bottom: 20px; /* Space between image and first link */
+    }
+
+    .sidebar a {
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 18px;
+        color: white;
+        display: block;
+        text-align: left;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Highlight effect */
+    }
+
+    /* Footer styling */
+    .sidebar-footer {
+        margin-top: auto; /* Push footer to the bottom */
+        padding: 10px;
+        text-align: center;
+        color: white;
+        font-size: 14px;
+        background-color: rgba(0, 0, 0, 0.8); /* Same background as sidebar */
+        width: 100%;
+    }
+
+    /* Content wrapper with margin */
+    .content {
+        margin-left: 250px; /* Same as sidebar width */
+        padding: 20px;
+    }
+
+    /* Paragraph styling */
+    .paragraph {
+        padding: 20px;
+    }
+
+    p {
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    form {
+        max-width: 800px;
+        margin: 20px auto;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text readability */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+        form {
+        max-width: 800px;
+        margin: 20px auto;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    form .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: 80%;
+        padding: 12px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s ease;
+    }
+
+    input[type=text]:focus,
+    input[type=password]:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 8px #ff6666;
+    }
+
+    ::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    button[type=submit] {
+        background-color: #a70000;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: 0.3s ease;
+    }
+
+    button[type=submit]:hover {
+        background-color: #ff4444;
+        box-shadow: 0 0 10px #ff6666;
+    }
+
+    .psw a {
+        color: #66b3ff;
+        text-decoration: none;
+    }
+
+    .psw a:hover {
+        text-decoration: underline;
+    }
+
+    label {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <img src="https://forums.terraria.org/index.php?attachments/calamity_logo_1-png.200818/" alt="Sidebar Image" class="sidebar-image">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('progression') }}">Progression Guide</a>
+    <a href="{{ url_for('equipment') }}">Equipment Guide</a>
+    <a href="{{ url_for('about') }}">About the Mod</a>
+    <a href="{{ url_for('music') }}">Soundtrack Info</a>
+
+{% if session.get('user_id') %}
+    <!-- When logged in: show username and logout button -->
+        <span style="display: block; color: #fff; font-size: 18px; margin-bottom: 8px; margin-top: 30px;">
+            Logged in as {{ session.get('username') }}</span>
+        <a href="{{ url_for('logout') }}">Logout</a>
+{% else %}
+    <!-- When not logged in: show login & register buttons -->
+        <a href="{{ url_for('login') }}">Login Page</a>
+        <a href="{{ url_for('register') }}">Sign Up</a>
+{% endif %}
+
+
+
+
+        <!-- Footer Section -->
+        <div class="sidebar-footer">
+            <p>© 2016 Calamity Mod, Fabsol</p>
+        </div>
+    </div>
+
+    <div class="paragraph">
+        <p>Login Screen</p>
+    </div>
+    <div class="paragraph">
+        <p>
+            <!--This is the code for the login fields-->
+            <form action="" method="post">
+                <div class="container">
+                    <input type="text" placeholder="Enter Forename" name="forename" required>
+                    <br><br>
+                    <input type="text" placeholder="Enter Surname" name="surname" required>
+                    <br><br>
+                    <input type="text" placeholder="Enter E-mail" name="email" required>
+                    <br><br>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+                    <br><br> 
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+                    <br><br>
+                    <span class="psw"><a href="#" target="_blank" >Forgot password?</a></span>
+                    <br>
+                    <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                    <br> <br>
+                    <button type="submit">Sign up</button>
+                    <br> <br>
+                </div>
+            </form>
+        
+        </p>
+    </div>
+    <div class="paragraph">
+        <p>Please Sign up using the fields above. The username and password field are both required. Click the button to show your password.
+            By Signing up you agree to our <a href="{{ url_for('termsandconditions') }}" style="text-decoration: underline;">terms and conditions.</a>
+        </p>
+    </div>
+    <div class="paragraph">
+        <p>Already have an account? <a href="{{ url_for('login') }}" style="text-decoration: underline;">Login here</a>
+        </p>
+    </div>
+</body>
+</html>

@@ -5,7 +5,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 create_database() 
 
+
 app = Flask(__name__)
+
+app.secret_key = 'bigman3943girl' # Change this to a random secret key
+db_locale = 'users.db'
+
+def get_db_connection():
+    conn = sqlite3.connect("users.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
 
 @app.route('/')
 def home():

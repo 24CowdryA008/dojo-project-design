@@ -104,6 +104,10 @@ main {
     color: var(--raspberry);
 }
 
+.feature h2 {
+    color: var(--raspberry);
+}
+
 footer {
     background-color: var(--black);
     color: var(--white);

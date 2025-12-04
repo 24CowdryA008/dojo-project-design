@@ -3,6 +3,8 @@ import sqlite3, hashlib
 from create_db import create_database
 from werkzeug.security import generate_password_hash, check_password_hash
 
+create_database() 
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -17,9 +19,6 @@ def about():
 def courses():
     return render_template('courses.html')
 
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
 
 @app.route("/Login", methods=["GET", "POST"])
 def login():

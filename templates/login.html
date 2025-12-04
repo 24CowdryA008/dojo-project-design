@@ -1,0 +1,201 @@
+{% extends 'basis.html' %}
+
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    form {
+        max-width: 800px;
+        margin: 20px auto;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    form .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: 80%;
+        padding: 12px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 6px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s ease;
+    }
+
+    input[type=text]:focus,
+    input[type=password]:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 8px #ff6666;
+    }
+
+    ::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    button[type=submit] {
+        background-color: #a70000;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: 0.3s ease;
+    }
+
+    button[type=submit]:hover {
+        background-color: #ff4444;
+        box-shadow: 0 0 10px #ff6666;
+    }
+
+    .psw a {
+        color: #66b3ff;
+        text-decoration: none;
+    }
+
+    .psw a:hover {
+        text-decoration: underline;
+    }
+
+    label {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .flash-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    text-align: center;
+}
+
+.flash-message {
+    padding: 15px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 10px;
+    animation: flashFade 4s ease-in-out forwards;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Success message */
+.flash-message.success {
+    background-color: rgba(0, 150, 0, 0.8);
+    box-shadow: 0 0 10px #00ff88;
+}
+
+/* Error message */
+.flash-message.error {
+    background-color: rgba(200, 0, 0, 0.8);
+    box-shadow: 0 0 10px #ff4444;
+}
+
+/* Warning/info messages */
+.flash-message.info {
+    background-color: rgba(0, 100, 200, 0.8);
+    box-shadow: 0 0 10px #66b3ff;
+}
+
+@keyframes flashFade {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+    .flash-message.error {
+        animation: flashFade 4s ease-in-out forwards, shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(-50%) translateY(0); }
+        20% { transform: translateX(-52%) translateY(0); }
+        40% { transform: translateX(-48%) translateY(0); }
+        60% { transform: translateX(-52%) translateY(0); }
+        80% { transform: translateX(-48%) translateY(0); }
+        100% { transform: translateX(-50%) translateY(0); }
+    }
+
+    </style>
+</head>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const flashes = document.querySelectorAll(".flash-message.error");
+    flashes.forEach(flash => {
+        flash.classList.add("shake");
+        setTimeout(() => flash.classList.remove("shake"), 400);
+    });
+});
+</script>
+
+<body>
+    <div class="paragraph">
+        <p>Login Screen</p>
+    </div>
+
+    <div class="flash-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+    <div class="paragraph">
+        <p>
+            <!--This is the code for the login fields-->
+            <form action="" method="post">
+                <div class="container">
+                    <input type="text" placeholder="Enter Username/E-mail" name="uname" required>
+                    <br> <br>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+                    <br><br>
+                    <span class="psw"><a href="#" target="_blank" >Forgot password?</a></span>
+                    <br>
+                    <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                    <br> <br>
+                    <button type="submit">Log in</button>
+                    <br> <br>
+                </div>
+            </form>
+            
+        </p>
+    </div>
+</body>
+</html>
+
+{% endblock %}

@@ -3,7 +3,7 @@
     --green: #75A928;
     --black: #1E1E1E;
     --white: #FFFFFF;
-    --gray: #F4F4F4;
+    --gray: #838383;
 }
 
 /* Make body a flex container for sticky footer */
@@ -16,7 +16,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Segoe UI', sans-serif;
-    background-color: var(--gray);
+    background-color: var(--white);
     color: var(--black);
 }
 

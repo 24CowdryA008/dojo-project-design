@@ -108,6 +108,14 @@ main {
     color: var(--raspberry);
 }
 
+.nav-username {
+    color: var(--white);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+
 footer {
     background-color: var(--black);
     color: var(--white);

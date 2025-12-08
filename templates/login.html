@@ -6,6 +6,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+    .paragraph {
+        padding: 20px;
+    }
+
+    p {
+        max-width: 800px;
+        margin: 20px auto;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text readability */
+        padding: 20px;
+        border-radius: 10px;
+    }          /* Content wrapper with margin */
+    .content {
+        margin-left: 250px; /* Same as sidebar width */
+        padding: 20px;
+    }          /* Paragraph styling */
+    .paragraph {
+        padding: 20px;
+    }          p {
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+   
     form {
         max-width: 800px;
         margin: 20px auto;
@@ -173,8 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
     {% endwith %}
 </div>
 
-    <div class="paragraph">
-        <p>
             <!--This is the code for the login fields-->
             <form action="" method="post">
                 <div class="container">
@@ -192,8 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <br> <br>
                 </div>
             </form>
-        </p>
-    </div>
         <div class="paragraph">
         <p>Don't have an account? <a href="{{ url_for('register') }}" style="text-decoration: underline;">Click here to register.</a></p>
     </div>

@@ -25,8 +25,15 @@
                 <li><a href="{{ url_for('home') }}">Home</a></li>
                 <li><a href="{{ url_for('about') }}">About Us</a></li>
                 <li><a href="{{ url_for('courses') }}">Courses</a></li>
-                <li><a href="{{ url_for('login') }}">Log In</a></li>
-                <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% if session.get('user_id') %}
+                <!-- When logged in: show username and logout button -->
+                    <li class="nav-username">Logged in as {{ session.get('username') }}</li>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                <!-- When not logged in: show login & register buttons -->
+                    <a href="{{ url_for('login') }}">Login Page</a>
+                    <a href="{{ url_for('register') }}">Sign Up</a>
+                {% endif %}
             </ul>
         </nav>
     </header>
@@ -34,6 +41,8 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+
+
 
     <footer>
         <p>&copy; {{ current_year }} The Coding Dojo</p>

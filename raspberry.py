@@ -49,6 +49,9 @@ def load_user(user_id):
         return User(user_row["id"], user_row["username"], user_row["email"], user_row["password"])
     return None
 
+# ---------------
+# App Routes
+# ---------------
 
 @app.route('/')
 def home():

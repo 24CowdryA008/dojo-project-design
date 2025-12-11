@@ -91,7 +91,7 @@
 
     button[type=submit]:hover {
         background-color: #f32d65;
-        box-shadow: 0 0 10px #ff6666;
+        box-shadow: 0 0 10px #c2315a;
     }
 
     .psw a {
@@ -107,44 +107,6 @@
         font-size: 14px;
         color: rgba(255, 255, 255, 0.8);
     }
-
-    .flash-container {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 9999;
-    text-align: center;
-}
-
-.flash-message {
-    padding: 15px 25px;
-    border-radius: 6px;
-    font-weight: bold;
-    color: white;
-    font-size: 16px;
-    margin-bottom: 10px;
-    animation: flashFade 4s ease-in-out forwards;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-}
-
-/* Success message */
-.flash-message.success {
-    background-color: rgba(0, 150, 0, 0.8);
-    box-shadow: 0 0 10px #00ff88;
-}
-
-/* Error message */
-.flash-message.error {
-    background-color: rgba(200, 0, 0, 0.8);
-    box-shadow: 0 0 10px #ff4444;
-}
-
-/* Warning/info messages */
-.flash-message.info {
-    background-color: rgba(0, 100, 200, 0.8);
-    box-shadow: 0 0 10px #66b3ff;
-}
 
 @keyframes flashFade {
     0% {

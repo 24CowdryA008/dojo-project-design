@@ -28,6 +28,9 @@
             <label>Date</label>
             <input type="date" name="date" required>
 
+            <label>Time</label>
+            <input type="time" name="time" required>
+
             <button type="submit" class="btn">Submit Booking</button>
         </form>
     </section>
@@ -42,6 +45,7 @@
                     <li>
                         <strong>{{ b[1] }}</strong><br>
                         Date: {{ b[2] }}<br>
+                        Time: {{ b[3] }}<br>
                     
                         <a href="{{ url_for('cancel_booking', booking_id=b[0]) }}" 
                             class="btn cancel-btn"

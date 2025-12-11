@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS bookings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     course TEXT NOT NULL,
-    date TEXT NOT NULL
+    date TEXT NOT NULL,
+    time TEXT NOT NULL
 )
 """)
 

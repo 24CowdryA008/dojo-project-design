@@ -68,11 +68,12 @@ def bookings():
     if request.method == 'POST':
         course = request.form.get('course')
         date = request.form.get('date')
+        time = request.form.get('time')
 
         conn = sqlite3.connect("bookings.db")
         c = conn.cursor()
-        c.execute("INSERT INTO bookings (user_id, course, date) VALUES (?, ?, ?)",
-                (current_user.id, course, date))
+        c.execute("INSERT INTO bookings (user_id, course, date, time) VALUES (?, ?, ?, ?)",
+                (current_user.id, course, date, time))
         conn.commit()
         conn.close()
 

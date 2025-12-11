@@ -7,11 +7,12 @@ from config import Config
 
 create_database() 
 
-
+# ------------------- 
+# Flask App Setup
+# -------------------
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = app.config.get('SECRET_KEY') or 'dev-secret-key'
-# Initialize Flask-Login
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -49,7 +50,6 @@ def load_user(user_id):
     return None
 
 
-
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -80,8 +80,12 @@ def bookings():
         flash("Your booking has been submitted!", "success")
         return redirect(url_for('bookings'))
 
-    # Load current user's bookings
-    user_bookings = get_user_bookings(current_user.id)
+    # Fetch bookings including time
+    conn = sqlite3.connect("bookings.db")
+    c = conn.cursor()
+    c.execute("SELECT id, course, date, time FROM bookings WHERE user_id = ?", (current_user.id,))
+    user_bookings = c.fetchall()
+    conn.close()
 
     return render_template('bookings.html', user_bookings=user_bookings)
 

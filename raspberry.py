@@ -175,6 +175,10 @@ def logout():
     flash("You have been logged out.", "info")
     return redirect(url_for("login"))
 
+@app.route('/termsandconditions')
+def termsandconditions():
+    return render_template('termsandconditions.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
 

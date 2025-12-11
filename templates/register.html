@@ -2,10 +2,7 @@
 
 {% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
+<style>
         .paragraph {
             padding: 20px;
             color: white;
@@ -116,9 +113,6 @@
             color: rgba(255, 255, 255, 0.8);
         }
     </style>
-</head>
-<body>
-
 
     <div class="paragraph">
         <p>Register Screen</p>
@@ -149,7 +143,9 @@
     <div class="paragraph">
         <p>Already have an account? <a href="{{ url_for('login') }}" style="text-decoration: underline;">Login here</a></p>
     </div>
-</body>
-</html>
+
+    <div class="paragraph">
+        <p>By creating an account, you agree to our <a href="{{ url_for('termsandconditions') }}" style="text-decoration: underline;">Terms & Conditions</a>.</p>
+    </div>
 
 {% endblock %}

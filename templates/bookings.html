@@ -1,0 +1,63 @@
+{% extends 'basis.html' %}
+
+{% block content %}
+
+<div style="display: flex; gap: 40px;">
+
+    <!-- LEFT: Booking form -->
+    <section class="booking-form" style="flex: 2;">
+        <h2>Book a Course</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, msg in messages %}
+                    <div class="flash {{ category }}">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label>Course</label>
+            <select name="course" required>
+                <option value="">-- Select a Course --</option>
+                <option>Software Development</option>
+                <option>Hardware Run-through</option>
+                <option>Website Designing</option>
+            </select>
+
+            <label>Date</label>
+            <input type="date" name="date" required>
+
+            <button type="submit" class="btn">Submit Booking</button>
+        </form>
+    </section>
+
+    <!-- RIGHT: User's Bookings -->
+    <aside class="sidebar" style="flex: 1; background:#f0f0f0; padding:20px; border-radius:12px;">
+        <h3>Your Bookings</h3>
+
+        {% if user_bookings %}
+            <ul>
+                {% for b in user_bookings %}
+                    <li>
+                        <strong>{{ b[1] }}</strong><br>
+                        Date: {{ b[2] }}<br>
+                    
+                        <a href="{{ url_for('cancel_booking', booking_id=b[0]) }}" 
+                            class="btn cancel-btn"
+                            onclick="return confirm('Are you sure you want to cancel this booking?');">
+                            Cancel
+                        </a>
+                    </li>
+
+                    <hr>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no bookings yet.</p>
+        {% endif %}
+    </aside>
+
+</div>
+
+{% endblock %}

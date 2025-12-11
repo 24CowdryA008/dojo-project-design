@@ -143,3 +143,60 @@ footer a:hover {
         gap: 0.5rem;
     }
 }
+
+.booking-wrapper {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.booking-form, .sidebar {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.booking-form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.booking-form input,
+.booking-form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.booking-form .btn {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 10px 0;
+}
+
+.cancel-btn {
+    display: inline-block;
+    background: #ff4c4c;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.cancel-btn:hover {
+    background: #d63838;
+}

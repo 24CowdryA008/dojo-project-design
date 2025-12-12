@@ -139,6 +139,58 @@
         100% { transform: translateX(-50%) translateY(0); }
     }
 
+    /* Make paragraph boxes match the site's .feature card style but keep size */
+    .paragraph p {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: var(--white);
+        color: var(--black);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.555);
+    }
+
+    /* Style the form as a matching card (prevents nested dark boxes) */
+    form {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: var(--white) !important;
+        color: var(--black) !important;
+        padding: 1.5rem 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.555);
+    }
+
+    /* Inputs: readable on white form */
+    input[type=text],
+    input[type=password] {
+        width: 80%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 6px;
+        background-color: rgba(0,0,0,0.05);
+        color: var(--black);
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s ease;
+    }
+
+    input[type=text]:focus,
+    input[type=password]:focus {
+        background-color: rgba(0,0,0,0.06);
+        box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    }
+
+    ::placeholder {
+        color: rgba(0,0,0,0.5) !important;
+    }
+
+    /* Ensure the Remember me label is black */
+    form label {
+        color: var(--black) !important;
+    }
+
     </style>
 </head>
 
@@ -177,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="psw"><a href="#" target="_blank" >Forgot password?</a></span>
                     <br>
                     <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    <input type="checkbox" checked="checked" name="remember" color=""> Remember me
                     </label>
                     <br> <br>
                     <button type="submit">Log in</button>

@@ -3,149 +3,124 @@
 {% block content %}
 
 <style>
-        .paragraph {
-            padding: 20px;
-            color: white;
-        }
+    /* Use site variables from styles.css (defined in basis.html) */
 
-        p {
-            max-width: 800px;
-            margin: 20px auto;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text readability */
-            padding: 20px;
-            border-radius: 10px;
-        }
+    /* Paragraph card matching .feature */
+    .paragraph p {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: var(--white);
+        color: var(--black);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.555);
+    }
 
-        /* Content wrapper with margin */
-        .content {
-            margin-left: 250px; /* Same as sidebar width */
-            padding: 20px;
-        }
+    /* Form card matching .feature */
+    form {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: var(--white) !important;
+        color: var(--black) !important;
+        padding: 1.5rem 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.555);
+    }
 
-        /* Paragraph styling */
-        .paragraph {
-            padding: 20px;
-        }
+    form .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-        p {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            padding: 20px;
-            border-radius: 10px;
-        }
+    input[type=text],
+    input[type=password] {
+        width: 80%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 6px;
+        background-color: rgba(0,0,0,0.05);
+        color: var(--black);
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s ease;
+    }
 
-        form {
-            max-width: 800px;
-            margin: 20px auto;
-            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text readability */
-            padding: 20px;
-            border-radius: 10px;
-        }
+    input[type=text]:focus,
+    input[type=password]:focus {
+        background-color: rgba(0,0,0,0.06);
+        box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    }
 
-            form {
-            max-width: 800px;
-            margin: 20px auto;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
+    ::placeholder {
+        color: rgba(0,0,0,0.5) !important;
+    }
 
-        form .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    button[type=submit] {
+        background-color: #C51A4A;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: 0.3s ease;
+    }
 
-        input[type=text],
-        input[type=password] {
-            width: 80%;
-            padding: 12px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s ease;
-        }
+    button[type=submit]:hover {
+        background-color: #f32d65;
+        box-shadow: 0 0 10px #c2315a;
+    }
 
-        input[type=text]:focus,
-        input[type=password]:focus {
-            background-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 8px #ff6666;
-        }
+    .psw a {
+        color: #66b3ff;
+        text-decoration: none;
+    }
 
-        ::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
+    .psw a:hover {
+        text-decoration: underline;
+    }
 
-        button[type=submit] {
-            background-color: #C51A4A;
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s ease;
-        }
+    label {
+        font-size: 14px;
+        color: var(--black);
+    }
+</style>
 
-        button[type=submit]:hover {
-            background-color: #f32d65;
-            box-shadow: 0 0 10px #c2315a;
-        }
+<div class="paragraph">
+    <p>Register Screen</p>
+</div>
+        <!--This is the code for the login fields-->
+        <form action="" method="post">
+            <div class="container">
+                <input type="text" placeholder="Enter Forename" name="forename" required>
+                <br><br>
+                <input type="text" placeholder="Enter Surname" name="surname" required>
+                <br><br>
+                <input type="text" placeholder="Enter E-mail" name="email" required>
+                <br><br>
+                <input type="text" placeholder="Enter Username" name="uname" required>
+                <br><br> 
+                <input type="password" placeholder="Enter Password" name="psw" required>
+                <br><br>
+                <span class="psw"><a href="#" target="_blank" >Forgot password?</a></span>
+                <br>
+                <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+                <br> <br>
+                <button type="submit">Sign up</button>
+                <br> <br>
+            </div>
+        </form>
+<div class="paragraph">
+    <p>Already have an account? <a href="{{ url_for('login') }}" style="text-decoration: underline;">Login here</a></p>
+</div>
 
-        .psw a {
-            color: #66b3ff;
-            text-decoration: none;
-        }
-
-        .psw a:hover {
-            text-decoration: underline;
-        }
-
-        label {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-    </style>
-
-    <div class="paragraph">
-        <p>Register Screen</p>
-    </div>
-            <!--This is the code for the login fields-->
-            <form action="" method="post">
-                <div class="container">
-                    <input type="text" placeholder="Enter Forename" name="forename" required>
-                    <br><br>
-                    <input type="text" placeholder="Enter Surname" name="surname" required>
-                    <br><br>
-                    <input type="text" placeholder="Enter E-mail" name="email" required>
-                    <br><br>
-                    <input type="text" placeholder="Enter Username" name="uname" required>
-                    <br><br> 
-                    <input type="password" placeholder="Enter Password" name="psw" required>
-                    <br><br>
-                    <span class="psw"><a href="#" target="_blank" >Forgot password?</a></span>
-                    <br>
-                    <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
-                    <br> <br>
-                    <button type="submit">Sign up</button>
-                    <br> <br>
-                </div>
-            </form>
-    <div class="paragraph">
-        <p>Already have an account? <a href="{{ url_for('login') }}" style="text-decoration: underline;">Login here</a></p>
-    </div>
-
-    <div class="paragraph">
-        <p>By creating an account, you agree to our <a href="{{ url_for('termsandconditions') }}" style="text-decoration: underline;">Terms & Conditions</a>.</p>
-    </div>
+<div class="paragraph">
+    <p>By creating an account, you agree to our <a href="{{ url_for('termsandconditions') }}" style="text-decoration: underline;">Terms & Conditions</a>.</p>
+</div>
 
 {% endblock %}

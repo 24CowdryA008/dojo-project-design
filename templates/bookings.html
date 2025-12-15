@@ -16,9 +16,27 @@
         {% endwith %}
 
         <form method="POST">
-            <label>Course</label>
-            <select name="course" required>
-                <option value="">-- Select a Course --</option>
+            <label>1st Choice</label>
+            <select name="choice1" required>
+                <option value="">-- Select 1st Choice --</option>
+                <option>Software Development</option>
+                <option>Hardware Run-through</option>
+                <option>Website Designing</option>
+                <option>Application Development</option>
+            </select>
+
+            <label>2nd Choice</label>
+            <select name="choice2">
+                <option value="">-- Select 2nd Choice (optional) --</option>
+                <option>Software Development</option>
+                <option>Hardware Run-through</option>
+                <option>Website Designing</option>
+                <option>Application Development</option>
+            </select>
+
+            <label>3rd Choice</label>
+            <select name="choice3">
+                <option value="">-- Select 3rd Choice (optional) --</option>
                 <option>Software Development</option>
                 <option>Hardware Run-through</option>
                 <option>Website Designing</option>
@@ -43,9 +61,11 @@
             <ul>
                 {% for b in user_bookings %}
                     <li>
-                        <strong>{{ b[1] }}</strong><br>
-                        Date: {{ b[2] }}<br>
-                        Time: {{ b[3] }}<br>
+                        <strong>1st choice: {{ b[1] }}</strong><br>
+                        2nd choice: {{ b[2] }}<br>
+                        3rd choice: {{ b[3] }}<br>
+                            Date: {{ b[4] }}<br>
+                            Time: {{ b[5] }}<br>
                     
                         <a href="{{ url_for('cancel_booking', booking_id=b[0]) }}" 
                             class="btn cancel-btn"

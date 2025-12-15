@@ -7,9 +7,26 @@ from config import Config
 
 create_database() 
 
-# ------------------- 
+# Ensure bookings table has choice columns (migration)
+def ensure_bookings_schema():
+    conn = sqlite3.connect("bookings.db")
+    c = conn.cursor()
+    c.execute("PRAGMA table_info(bookings)")
+    existing = [row[1] for row in c.fetchall()]
+    for col in ("choice1", "choice2", "choice3"):
+        if col not in existing:
+            try:
+                c.execute(f"ALTER TABLE bookings ADD COLUMN {col} TEXT")
+            except Exception:
+                pass
+    conn.commit()
+    conn.close()
+
+ensure_bookings_schema()
+
+# --------------------------------------------------
 # Flask App Setup
-# -------------------
+# --------------------------------------------------
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = app.config.get('SECRET_KEY') or 'dev-secret-key'
@@ -26,7 +43,7 @@ def get_db_connection():
 def get_user_bookings(user_id):
     conn = sqlite3.connect("bookings.db")
     c = conn.cursor()
-    c.execute("SELECT id, course, date FROM bookings WHERE user_id = ?", (user_id,))
+    c.execute("SELECT id, choice1, choice2, choice3, date, time FROM bookings WHERE user_id = ?", (user_id,))
     bookings = c.fetchall()
     conn.close()
     return bookings
@@ -49,9 +66,9 @@ def load_user(user_id):
         return User(user_row["id"], user_row["username"], user_row["email"], user_row["password"])
     return None
 
-# ---------------
+# ------------------------------------------------
 # App Routes
-# ---------------
+# ------------------------------------------------
 
 @app.route('/')
 def home():
@@ -69,24 +86,29 @@ def courses():
 @login_required
 def bookings():
     if request.method == 'POST':
-        course = request.form.get('course')
+        choice1 = request.form.get('choice1')
+        choice2 = request.form.get('choice2')
+        choice3 = request.form.get('choice3')
         date = request.form.get('date')
         time = request.form.get('time')
 
+        # Keep legacy 'course' column populated (use first choice)
+        course = choice1 if choice1 else ''
+
         conn = sqlite3.connect("bookings.db")
         c = conn.cursor()
-        c.execute("INSERT INTO bookings (user_id, course, date, time) VALUES (?, ?, ?, ?)",
-                (current_user.id, course, date, time))
+        c.execute("INSERT INTO bookings (user_id, course, choice1, choice2, choice3, date, time) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (current_user.id, course, choice1, choice2, choice3, date, time))
         conn.commit()
         conn.close()
 
         flash("Your booking has been submitted!", "success")
         return redirect(url_for('bookings'))
 
-    # Fetch bookings including time
+    # Fetch bookings including choices and time
     conn = sqlite3.connect("bookings.db")
     c = conn.cursor()
-    c.execute("SELECT id, course, date, time FROM bookings WHERE user_id = ?", (current_user.id,))
+    c.execute("SELECT id, choice1, choice2, choice3, date, time FROM bookings WHERE user_id = ?", (current_user.id,))
     user_bookings = c.fetchall()
     conn.close()
 
@@ -108,8 +130,7 @@ def cancel_booking(booking_id):
     flash("Booking cancelled.", "info")
     return redirect(url_for("bookings"))
 
-
-
+#This code is so that users can login and register (logging in is required)
 @app.route("/Login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":

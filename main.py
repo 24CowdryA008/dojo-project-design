@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory, abort
 import sqlite3, hashlib
+import os
 from create_db import create_database
 from flask_login import LoginManager, login_required, current_user, login_user, logout_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
 
-create_database() 
+# Do NOT run create_database() at import time in serverless environments.
+# create_database()
 
 # Ensure bookings table has choice columns (migration)
 def ensure_bookings_schema():
@@ -22,7 +24,8 @@ def ensure_bookings_schema():
     conn.commit()
     conn.close()
 
-ensure_bookings_schema()
+# Do NOT call ensure_bookings_schema() at import time; initialize via CLI or when running locally.
+# ensure_bookings_schema()
 
 # --------------------------------------------------
 # Flask App Setup
@@ -200,6 +203,50 @@ def logout():
 def termsandconditions():
     return render_template('termsandconditions.html')
 
+# Serve favicons directly so requests to /favicon.ico and /favicon.png succeed on Vercel
+@app.route('/favicon.ico')
+def favicon():
+    static_dir = os.path.join(app.root_path, 'static')
+    ico_path = os.path.join(static_dir, 'favicon.ico')
+    png_path = os.path.join(static_dir, 'favicon.png')
+
+    if os.path.exists(ico_path):
+        return send_from_directory(static_dir, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    if os.path.exists(png_path):
+        return send_from_directory(static_dir, 'favicon.png', mimetype='image/png')
+
+    # Neither favicon exists; return 404 so caller knows it's not available
+    abort(404)
+
+@app.route('/favicon.png')
+def favicon_png():
+    static_dir = os.path.join(app.root_path, 'static')
+    png_path = os.path.join(static_dir, 'favicon.png')
+    if os.path.exists(png_path):
+        return send_from_directory(static_dir, 'favicon.png', mimetype='image/png')
+    ico_path = os.path.join(static_dir, 'favicon.ico')
+    if os.path.exists(ico_path):
+        return send_from_directory(static_dir, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    abort(404)
+
+from flask.cli import with_appcontext
+import click
+
+@app.cli.command('init-db')
+@with_appcontext
+def init_db_command():
+    """Initialize application databases (users + bookings)."""
+    create_database()
+    ensure_bookings_schema()
+    click.echo('Databases initialized.')
+
 if __name__ == '__main__':
+    # When running the dev server locally, initialize DBs if missing.
+    try:
+        create_database()
+        ensure_bookings_schema()
+    except Exception:
+        # Don't crash the dev server if DB init fails unexpectedly
+        pass
     app.run(debug=True)
 

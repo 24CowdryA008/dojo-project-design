@@ -1,4 +1,5 @@
 import sqlite3
+
 def create_database():
     db_locale = 'users.db'
 
@@ -18,6 +19,3 @@ CREATE TABLE IF NOT EXISTS users (
 
     connection.commit()
     connection.close()
-
-create_database()
-print("Database and users table created successfully.")

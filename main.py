@@ -248,5 +248,7 @@ if __name__ == '__main__':
     except Exception:
         # Don't crash the dev server if DB init fails unexpectedly
         pass
-    app.run(debug=True)
+    
+    app.run(debug=True) # When updating the site, just refresh the page rather than having to restart the whole program.
+
 

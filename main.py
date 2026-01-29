@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory, abort
+from flask_login import LoginManager, login_required, current_user, login_user, logout_user, UserMixin
+from flask.cli import with_appcontext
 import sqlite3, hashlib
 import os
 from create_db import create_database
-from flask_login import LoginManager, login_required, current_user, login_user, logout_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
+import click
 
-# Do NOT run create_database() at import time in serverless environments.
+# --------------------------------------------------
 # create_database()
 
 # Ensure bookings table has choice columns (migration)
@@ -24,7 +26,8 @@ def ensure_bookings_schema():
     conn.commit()
     conn.close()
 
-# Do NOT call ensure_bookings_schema() at import time; initialize via CLI or when running locally.
+# --------------------------------------------------
+# Initialize Databases if missing
 # ensure_bookings_schema()
 
 # --------------------------------------------------
@@ -71,7 +74,6 @@ def load_user(user_id):
 
 # ------------------------------------------------
 # App Routes
-# ------------------------------------------------
 
 @app.route('/')
 def home():
@@ -229,8 +231,8 @@ def favicon_png():
         return send_from_directory(static_dir, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
     abort(404)
 
-from flask.cli import with_appcontext
-import click
+# --------------------------------------------------
+# CLI Command
 
 @app.cli.command('init-db')
 @with_appcontext
@@ -239,6 +241,9 @@ def init_db_command():
     create_database()
     ensure_bookings_schema()
     click.echo('Databases initialized.')
+
+# --------------------------------------------------
+# Main Entry Point
 
 if __name__ == '__main__':
     # When running the dev server locally, initialize DBs if missing.
@@ -250,5 +255,3 @@ if __name__ == '__main__':
         pass
     
     app.run(debug=True) # When updating the site, just refresh the page rather than having to restart the whole program.
-
-
